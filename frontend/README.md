@@ -12,7 +12,7 @@ We won't need a style folder if we are using tailwind inline styling.
 
 ## public/
 
-Image assets and other media
+Image assets and other mediaw
 
 ## src/components/
 
