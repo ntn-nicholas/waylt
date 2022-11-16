@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
+import Navbar from "./Navbar";
 
 function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -12,38 +13,39 @@ function Home() {
 
   const data01 = [
     {
-      genre: "Group A",
+      genre: "Pop",
       minutes: 400,
       fill: "#FF0000",
     },
     {
-      genre: "Group B",
+      genre: "Hip-Hop",
       minutes: 300,
       fill: "#FFFF00",
     },
     {
-      genre: "Group C",
+      genre: "Country",
       minutes: 300,
       fill: "#00FF00",
     },
     {
-      genre: "Group D",
+      genre: "Rock",
       minutes: 200,
       fill: "#9B26B6",
     },
     {
-      genre: "Group E",
+      genre: "Jazz",
       minutes: 278,
       fill: "#0000FF",
     },
     {
-      genre: "Group F",
+      genre: "Rap",
       minutes: 189,
       fill: "#FFA500",
     },
   ];
 
   const [minutes, setMinutes] = useState(0);
+  const [genre, setGenre] = useState("");
 
   const renderActiveShape = (props: any) => {
     const RADIAN = Math.PI / 180;
@@ -59,6 +61,7 @@ function Home() {
       payload,
       percent,
       value,
+      genre,
     } = props;
     const sin = Math.sin(-RADIAN * midAngle);
     const cos = Math.cos(-RADIAN * midAngle);
@@ -71,6 +74,7 @@ function Home() {
     const textAnchor = cos >= 0 ? "start" : "end";
 
     setMinutes(value);
+    setGenre(genre);
 
     return (
       <g>
@@ -121,31 +125,38 @@ function Home() {
   };
 
   return (
-    <div className="bg-beige h-max">
-      <br />
-      <br />
-      <h1 className="text-pink text-5xl md:6xl font-semibold flex justify-center text-center">
-        What are you listening to?
-      </h1>
-      <h1 className="flex justify-center mt-32 text-pink text-5xl drop-shadow-xl">
-        {minutes} minutes
-      </h1>
-      <div className="flex justify-center h-screen w-screen drop-shadow-2xl">
-        <ResponsiveContainer width="100%" height="70%">
-          <PieChart>
-            <Pie
-              activeIndex={activeIndex}
-              activeShape={renderActiveShape}
-              data={data01}
-              dataKey="minutes"
-              nameKey="genre"
-              cx="50%"
-              cy="50%"
-              outerRadius="60%"
-              onMouseEnter={onPieEnter}
-            />
-          </PieChart>
-        </ResponsiveContainer>
+    <div>
+      <Navbar />
+      <div className="bg-beige h-max">
+        <br />
+        <br />
+        <h1 className="text-pink text-6xl md:text-8xl font-bold text-center ml-20 mr-20">
+          What are you{" "}
+          <span className="text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise via-pink to-yellow">
+            listening
+          </span>{" "}
+          to?
+        </h1>
+        <h1 className="text-pink text-center mt-20  text-3xl md:text-5xl tracking-tight ml-20 mr-20">
+          You listened to {minutes} minutes of {genre} today!
+        </h1>
+        <div className="flex justify-center h-screen w-screen drop-shadow-2xl -mt-12">
+          <ResponsiveContainer width="100%" height="70%">
+            <PieChart>
+              <Pie
+                activeIndex={activeIndex}
+                activeShape={renderActiveShape}
+                data={data01}
+                dataKey="minutes"
+                nameKey="genre"
+                cx="50%"
+                cy="50%"
+                outerRadius="60%"
+                onMouseEnter={onPieEnter}
+              />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );

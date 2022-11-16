@@ -6,7 +6,11 @@ import Playlist from "./components/Player";
 import "./App.css";
 
 function App() {
-  return <div></div>;
+  return (
+    <div className="bg-beige">
+      <Home />
+    </div>
+  );
 }
 
 export default App;
