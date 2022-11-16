@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { PieChart, Pie, Sector } from "recharts";
+import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
 
 function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -43,12 +43,7 @@ function Home() {
     },
   ];
 
-  const data = [
-    { name: "Group A", value: 400 },
-    { name: "Group B", value: 300 },
-    { name: "Group C", value: 300 },
-    { name: "Group D", value: 200 },
-  ];
+  const [minutes, setMinutes] = useState(0);
 
   const renderActiveShape = (props: any) => {
     const RADIAN = Math.PI / 180;
@@ -71,13 +66,16 @@ function Home() {
     const sy = cy + (outerRadius + 10) * sin;
     const mx = cx + (outerRadius + 30) * cos;
     const my = cy + (outerRadius + 30) * sin;
-    const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+    const ex = mx + (cos >= 0 ? 1 : -1) * -15;
     const ey = my;
     const textAnchor = cos >= 0 ? "start" : "end";
+
+    setMinutes(value);
 
     return (
       <g>
         <Sector
+          className="hover:drop-shadow-2xl hover:animate-pulse"
           cx={cx}
           cy={cy}
           innerRadius={innerRadius}
@@ -86,7 +84,7 @@ function Home() {
           endAngle={endAngle}
           fill={fill}
         />
-        <Sector
+        {/* <Sector
           cx={cx}
           cy={cy}
           startAngle={startAngle}
@@ -94,22 +92,22 @@ function Home() {
           innerRadius={outerRadius + 6}
           outerRadius={outerRadius + 20}
           fill={fill}
-        />
-        <path
+        /> */}
+        {/* <path
           d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
           stroke={fill}
           fill="none"
         />
-        <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-        <text
-          className="text-4xl"
+        <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" /> */}
+        {/* <text
+          className="text-xl md:text-4xl"
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
           textAnchor={textAnchor}
           fill="#f28482"
-        >{`${value} minutes`}</text>
-        <text
-          className="text-2xl"
+        >{`${value}`}</text> */}
+        {/* <text
+          className="text-lg md:text-2xl"
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
           dy={30}
@@ -117,32 +115,37 @@ function Home() {
           fill="#f5cac3"
         >
           {`(${(percent * 100).toFixed(2)}%)`}
-        </text>
+        </text> */}
       </g>
     );
   };
 
   return (
-    <div className="bg-beige h-screen">
+    <div className="bg-beige h-max">
       <br />
       <br />
-      <h1 className="text-pink text-7xl font-semibold flex justify-center">
+      <h1 className="text-pink text-5xl md:6xl font-semibold flex justify-center text-center">
         What are you listening to?
       </h1>
-      <div className="flex justify-center">
-        <PieChart width={1460} height={800}>
-          <Pie
-            activeIndex={activeIndex}
-            activeShape={renderActiveShape}
-            data={data01}
-            dataKey="minutes"
-            nameKey="genre"
-            cx="50%"
-            cy="50%"
-            outerRadius={250}
-            onMouseEnter={onPieEnter}
-          />
-        </PieChart>
+      <h1 className="flex justify-center mt-32 text-pink text-5xl drop-shadow-xl">
+        {minutes} minutes
+      </h1>
+      <div className="flex justify-center h-screen w-screen drop-shadow-2xl">
+        <ResponsiveContainer width="100%" height="70%">
+          <PieChart>
+            <Pie
+              activeIndex={activeIndex}
+              activeShape={renderActiveShape}
+              data={data01}
+              dataKey="minutes"
+              nameKey="genre"
+              cx="50%"
+              cy="50%"
+              outerRadius="60%"
+              onMouseEnter={onPieEnter}
+            />
+          </PieChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );
