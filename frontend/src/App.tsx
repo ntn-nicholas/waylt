@@ -5,13 +5,14 @@ import Log_in from "./components/Log_in";
 import Playlist from "./components/Player";
 import Navbar from "./components/Navbar";
 import "./App.css";
+import Temp from "./components/Temp";
 
 function App() {
   return (
     <div className="bg-beige">
-      {/* <Navbar />
+      <Navbar />
       <Home />
-      <Friends /> */}
+      <Friends />
     </div>
   );
 }
