@@ -1,5 +1,7 @@
+import { MotionConfig } from "framer-motion";
 import React, { useCallback, useState } from "react";
 import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
+import { motion } from "framer-motion";
 import Navbar from "./Navbar";
 
 function Home() {
@@ -77,7 +79,7 @@ function Home() {
     setGenre(genre);
 
     return (
-      <g>
+      <g className="">
         <Sector
           className="hover:drop-shadow-2xl hover:animate-pulse"
           cx={cx}
@@ -88,45 +90,12 @@ function Home() {
           endAngle={endAngle}
           fill={fill}
         />
-        {/* <Sector
-          cx={cx}
-          cy={cy}
-          startAngle={startAngle}
-          endAngle={endAngle}
-          innerRadius={outerRadius + 6}
-          outerRadius={outerRadius + 20}
-          fill={fill}
-        /> */}
-        {/* <path
-          d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
-          stroke={fill}
-          fill="none"
-        />
-        <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" /> */}
-        {/* <text
-          className="text-xl md:text-4xl"
-          x={ex + (cos >= 0 ? 1 : -1) * 12}
-          y={ey}
-          textAnchor={textAnchor}
-          fill="#f28482"
-        >{`${value}`}</text> */}
-        {/* <text
-          className="text-lg md:text-2xl"
-          x={ex + (cos >= 0 ? 1 : -1) * 12}
-          y={ey}
-          dy={30}
-          textAnchor={textAnchor}
-          fill="#f5cac3"
-        >
-          {`(${(percent * 100).toFixed(2)}%)`}
-        </text> */}
       </g>
     );
   };
 
   return (
     <div>
-      <Navbar />
       <div className="bg-beige h-max">
         <br />
         <br />
@@ -137,10 +106,13 @@ function Home() {
           </span>{" "}
           to?
         </h1>
-        <h1 className="text-pink text-center mt-20  text-3xl md:text-5xl tracking-tight ml-20 mr-20">
-          You listened to {minutes} minutes of {genre} today!
+        <h1 className="text-pink text-center mt-20 text-3xl md:text-5xl tracking-tight ml-20 mr-20">
+          You listened to{" "}
+          <span className="font-bold text-yellow">{minutes}&nbsp;</span>
+          minutes of <span className="font-bold text-yellow">{genre}</span>{" "}
+          today!
         </h1>
-        <div className="flex justify-center h-screen w-screen drop-shadow-2xl -mt-12">
+        <div className="flex justify-center h-screen w-screen drop-shadow-2xl -mt-2 2xl:-mt-20">
           <ResponsiveContainer width="100%" height="70%">
             <PieChart>
               <Pie
