@@ -1,4 +1,5 @@
 import React from "react";
+import { loginUrl } from '../backend/login';
 
 export default function Navbar() {
   return (
@@ -27,7 +28,7 @@ export default function Navbar() {
             Friends
           </a>
           <a
-            href="#responsive-header"
+            href={loginUrl}
             className="transition-all duration-500 text-center inline-block text-lg px-16 py-4 rounded-full text-beige bg-turquoise border-turquoise border-2 hover:text-turquoise hover:bg-beige mt-4 mr-4 lg:mr-10 xl:mr-52 lg:mt-0"
           >
             Log in
