@@ -39,7 +39,6 @@ function Activity() {
       minutes: 278,
       fill: "#F6BD60",
     },
-  
   ];
 
   const [minutes, setMinutes] = useState(0);
@@ -104,8 +103,13 @@ function Activity() {
         </h1>
         <h1 className="text-black text-center mt-20 text-3xl md:text-5xl tracking-tight ml-20 mr-20">
           You listened to{" "}
-          <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink via-yellow to-turquoise">{minutes}&nbsp;</span>
-          minutes of <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise via-pink to-yellow">{genre}</span>{" "}
+          <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink via-yellow to-turquoise">
+            {minutes}&nbsp;
+          </span>
+          minutes of{" "}
+          <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise via-pink to-yellow">
+            {genre}
+          </span>{" "}
           today!
         </h1>
         <div className="flex justify-center h-screen w-screen drop-shadow-2xl -mt-2 2xl:-mt-20">

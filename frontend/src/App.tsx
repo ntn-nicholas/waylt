@@ -18,8 +18,6 @@ function App() {
           <Route path="/friends" element={<Friends />} />
           <Route path="/activity" element={<Activity />} />
         </Routes>
-        <Activity />
-        <Friends />
       </BrowserRouter>
       
     </div>
