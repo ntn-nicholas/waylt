@@ -15,10 +15,10 @@ function Image({ name }: { name: string }) {
       <h1 className="text-pink sm:left-[57%] sm:visible sm:text-6xl font-bold tracking-tight leading-tight absolute z-50">{`@${name}`}</h1>
       <div
         ref={ref}
-        className="w-80 h-96 relative max-h-96 m-5 overflow-hidden"
+        className="w-[400px] h-[500px] relative m-5 overflow-hidden"
       >
         <img
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 w-full h-full rounded-lg"
           src={`/${name}.jpg`}
           alt="A London skyscraper"
         />

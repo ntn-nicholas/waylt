@@ -4,7 +4,7 @@ import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
 import { motion } from "framer-motion";
 import Navbar from "./Navbar";
 
-function Home() {
+function Activity() {
   const [activeIndex, setActiveIndex] = useState(0);
   const onPieEnter = useCallback(
     (_: any, index: any) => {
@@ -17,33 +17,29 @@ function Home() {
     {
       genre: "Pop",
       minutes: 400,
-      fill: "#FF0000",
+      fill: "#84A59D",
     },
     {
       genre: "Hip-Hop",
       minutes: 300,
-      fill: "#FFFF00",
+      fill: "#F28482",
     },
     {
       genre: "Country",
       minutes: 300,
-      fill: "#00FF00",
+      fill: "#F5CAC3",
     },
     {
       genre: "Rock",
       minutes: 200,
-      fill: "#9B26B6",
+      fill: "#8C85B7",
     },
     {
       genre: "Jazz",
       minutes: 278,
-      fill: "#0000FF",
+      fill: "#F6BD60",
     },
-    {
-      genre: "Rap",
-      minutes: 189,
-      fill: "#FFA500",
-    },
+  
   ];
 
   const [minutes, setMinutes] = useState(0);
@@ -96,20 +92,20 @@ function Home() {
 
   return (
     <div>
-      <div className="bg-beige h-max">
+      <div className="bg-white h-max">
         <br />
         <br />
-        <h1 className="text-pink text-6xl md:text-8xl font-bold text-center ml-20 mr-20">
+        <h1 className="text-black text-6xl md:text-8xl font-bold text-center ml-20 mr-20 tracking-tight">
           What are you{" "}
-          <span className="text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise via-pink to-yellow">
+          <span className="text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow via-turquoise to-pink">
             listening
           </span>{" "}
           to?
         </h1>
-        <h1 className="text-pink text-center mt-20 text-3xl md:text-5xl tracking-tight ml-20 mr-20">
+        <h1 className="text-black text-center mt-20 text-3xl md:text-5xl tracking-tight ml-20 mr-20">
           You listened to{" "}
-          <span className="font-bold text-yellow">{minutes}&nbsp;</span>
-          minutes of <span className="font-bold text-yellow">{genre}</span>{" "}
+          <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink via-yellow to-turquoise">{minutes}&nbsp;</span>
+          minutes of <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise via-pink to-yellow">{genre}</span>{" "}
           today!
         </h1>
         <div className="flex justify-center h-screen w-screen drop-shadow-2xl -mt-2 2xl:-mt-20">
@@ -134,4 +130,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Activity;
