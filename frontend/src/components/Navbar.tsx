@@ -9,7 +9,7 @@ export default function Navbar() {
         <div className="flex-grow">
           <Link
             to="/"
-            className="inline-block mt-4 lg:inline-block lg:mt-0 text-5xl font-extrabold ml-4 lg:ml-10 xl:ml-52 text-transparent bg-clip-text bg-gradient-to-r from-turquoise via-pink to-yellow"
+            className="inline-block mt-4 lg:inline-block lg:mt-0 text-5xl font-extrabold ml-2 lg:ml-3 xl:ml-12 text-transparent bg-clip-text bg-gradient-to-r from-turquoise via-pink to-yellow"
           >
             waylt
           </Link>{" "}
@@ -30,7 +30,7 @@ export default function Navbar() {
           <Link
             // to={loginUrl}
             to="/activity"
-            className="transition-all duration-500 text-center inline-block text-lg px-16 py-4 rounded-full text-turquoise bg-white border-turquoise border-2 hover:text-white hover:bg-turquoise mt-4 mr-4 lg:mr-10 xl:mr-52 lg:mt-0"
+            className="transition-all duration-500 text-center inline-block text-lg px-16 py-4 rounded-full text-turquoise bg-white border-turquoise border-2 hover:text-white hover:bg-turquoise mt-4 mr-2 lg:mr-3 xl:mr-12 lg:mt-0"
           >
             Log in
           </Link>
