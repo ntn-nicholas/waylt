@@ -9,7 +9,17 @@ import {
   MotionValue,
 } from "framer-motion";
 
-function Image({ name }: { name: string }) {
+function Image({
+  username,
+  album,
+  song,
+  artist,
+}: {
+  username: string;
+  album: string;
+  song: string;
+  artist: string;
+}) {
   const ref = useRef(null);
   const [button, setButton] = useState("opacity-0");
   const [bgOpacity, setBgOpacity] = useState("hover:opacity-80");
@@ -28,7 +38,10 @@ function Image({ name }: { name: string }) {
 
   return (
     <section className="snap-center h-screen flex justify-center items-center relative">
-      <h1 className="text-pink sm:left-[57%] sm:visible sm:text-6xl font-bold tracking-tight leading-tight absolute z-40">{`@${name}`}</h1>
+      <h1 className="text-center sm:text-left bottom-[17rem] text-3xl text-pink drop-shadow-lg sm:left-[57%] sm:bottom-[32rem] sm:visible sm:text-6xl font-bold tracking-tight leading-tight absolute z-40">{`@${username}`}</h1>
+      <h2 className="text-center sm:text-left bottom-[57rem] text-5xl text-pink drop-shadow-lg sm:left-[25%] sm:bottom-[40rem] sm:visible sm:text-5xl font-bold tracking-tight leading-tight absolute z-40">{`${album}`}</h2>
+      <h2 className="text-center sm:text-left bottom-[54rem] text-4xl text-pink drop-shadow-lg sm:left-[25%] sm:bottom-[37rem] sm:visible sm:text-4xl font-bold tracking-tight leading-tight absolute z-40">{`${song}`}</h2>
+      <h2 className="text-center sm:text-left bottom-[51rem] text-3xl text-lightPink drop-shadow-lg sm:left-[25%] sm:bottom-[34rem] sm:visible sm:text-3xl font-bold tracking-tight leading-tight absolute z-40">{`${artist}`}</h2>
       <div
         ref={ref}
         className={`${bgOpacity} w-[400px] h-[500px] relative m-5 overflow-hidden`}
@@ -36,7 +49,7 @@ function Image({ name }: { name: string }) {
         onMouseOut={stopButton}
       >
         <div
-          className={`transition duration-[350ms] ${button} hover:scale-105 left-[73%] bottom-[5%] sm:left-[73%] sm:bottom-[5%] absolute bg-pink rounded-full w-20 h-20 z-40`}
+          className={`transition duration-[350ms] ${button} hover:scale-105 left-[73%] bottom-[5%] sm:left-[73%] sm:bottom-[5%] absolute bg-pink drop-shadow-lg rounded-full w-20 h-20 z-40`}
           onMouseOver={playBgOpacity}
         >
           <FontAwesomeIcon
@@ -46,7 +59,7 @@ function Image({ name }: { name: string }) {
         </div>
         <img
           className={`transition duration-[450ms] absolute inset-0 w-full h-full rounded-lg`}
-          src={`/${name}.jpg`}
+          src={`/${username}.jpg`}
           alt="A London skyscraper"
         />
       </div>
