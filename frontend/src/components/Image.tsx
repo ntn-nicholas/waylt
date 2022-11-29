@@ -38,10 +38,10 @@ function Image({
 
   return (
     <section className="snap-center h-screen flex justify-center items-center relative">
-      <h1 className="text-center sm:text-left bottom-[17rem] text-3xl text-pink drop-shadow-lg sm:left-[57%] sm:bottom-[32rem] sm:visible sm:text-6xl font-bold tracking-tight leading-tight absolute z-40">{`@${username}`}</h1>
-      <h2 className="text-center sm:text-left bottom-[57rem] text-5xl text-pink drop-shadow-lg sm:left-[25%] sm:bottom-[40rem] sm:visible sm:text-5xl font-bold tracking-tight leading-tight absolute z-40">{`${album}`}</h2>
-      <h2 className="text-center sm:text-left bottom-[54rem] text-4xl text-pink drop-shadow-lg sm:left-[25%] sm:bottom-[37rem] sm:visible sm:text-4xl font-bold tracking-tight leading-tight absolute z-40">{`${song}`}</h2>
-      <h2 className="text-center sm:text-left bottom-[51rem] text-3xl text-lightPink drop-shadow-lg sm:left-[25%] sm:bottom-[34rem] sm:visible sm:text-3xl font-bold tracking-tight leading-tight absolute z-40">{`${artist}`}</h2>
+      <h1 className="text-center sm:text-left bottom-[7rem] text-3xl text-pink drop-shadow-lg sm:left-[57%] sm:bottom-[22rem] 2xl:left-[57%] 2xl:bottom-[32rem] sm:visible sm:text-6xl font-bold tracking-tight leading-tight absolute z-40">{`@${username}`}</h1>
+      <h2 className="text-center sm:text-left bottom-[48rem] text-5xl text-pink drop-shadow-lg sm:left-[18%] sm:bottom-[33rem] 2xl:left-[25%] 2xl:bottom-[40rem] sm:visible sm:text-5xl font-bold tracking-tight leading-tight absolute z-40">{`${album}`}</h2>
+      <h2 className="text-center sm:text-left bottom-[45rem] text-4xl text-pink drop-shadow-lg sm:left-[18%] sm:bottom-[30rem] 2xl:left-[25%] 2xl:bottom-[37rem] sm:visible sm:text-4xl font-bold tracking-tight leading-tight absolute z-40">{`${song}`}</h2>
+      <h2 className="text-center sm:text-left bottom-[42rem] text-3xl text-lightPink drop-shadow-lg sm:left-[18%] sm:bottom-[27rem] 2xl:left-[25%] 2xl:bottom-[34rem] sm:visible sm:text-3xl font-bold tracking-tight leading-tight absolute z-40">{`${artist}`}</h2>
       <div
         ref={ref}
         className={`${bgOpacity} w-[400px] h-[500px] relative m-5 overflow-hidden`}

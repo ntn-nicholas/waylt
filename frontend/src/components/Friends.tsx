@@ -10,7 +10,7 @@ import Image from "./Image";
 
 export default function Temp() {
   return (
-    <div className="snap-y snap-mandatory h-screen w-screen overflow-scroll -mt-32">
+    <div className="snap-y snap-mandatory h-screen w-screen overflow-scroll sm:-mt-32">
       {[
         {
           username: "frank",
