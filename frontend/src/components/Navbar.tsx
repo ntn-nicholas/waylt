@@ -4,7 +4,7 @@ import { loginUrl } from '../backend/login';
 
 export default function Navbar() {
     return (
-        <nav className="flex items-center justify-between flex-wrap bg-white p-6 mb-20 h-30">
+        <nav className="flex items-center justify-between flex-wrap bg-white p-6 mb-20 h-30 sticky top-0 z-50">
             <div className="flex-grow flex items-center w-auto ">
                 <div className="flex-grow">
                     <Link
