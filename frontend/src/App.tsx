@@ -1,5 +1,5 @@
 import React from "react";
-import Friends from "./components/Friends";
+import Feed from "./components/Feed";
 import Activity from "./components/Activity";
 import Log_in from "./components/Log_in";
 import Playlist from "./components/Player";
@@ -31,7 +31,7 @@ function App() {
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Activity />} />
-                    <Route path="/friends" element={<Friends />} />
+                    <Route path="/feed" element={<Feed />} />
                     <Route path="/activity" element={<Activity />} />
                 </Routes>
             </BrowserRouter>
