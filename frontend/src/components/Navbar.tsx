@@ -15,17 +15,12 @@ export default function Navbar() {
                     </Link>{" "}
                 </div>
                 <div>
+                    {/*hi */}
                     <Link
-                        to="/activity"
-                        className="hidden lg:visible mt-4 lg:inline-block lg:mt-0 text-black text-2xl hover:text-turquoise lg:mr-4 transition duration-[450]"
-                    >
-                        Activity
-                    </Link>
-                    <Link
-                        to="/friends"
+                        to="/feed"
                         className="hidden lg:visible mt-4 lg:inline-block lg:mt-0 text-black text-2xl hover:text-turquoise lg:mr-16 lg:ml-12 transition duration-[450]"
                     >
-                        Friends
+                        Feed
                     </Link>
                     <a
                         href={loginUrl}
