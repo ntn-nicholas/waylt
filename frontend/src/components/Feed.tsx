@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import eventBus from "./EventBus";
 import {
   motion,
   useScroll,
