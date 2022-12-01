@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.3",
+    "eventbus": "^0.0.3",
     "framer-motion": "^7.6.7",
     "mongoose": "^6.7.2",
     "react": "^18.2.0",

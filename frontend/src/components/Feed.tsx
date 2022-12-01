@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import eventBus from "./EventBus";
 import {
   motion,
   useScroll,
@@ -8,10 +9,29 @@ import {
 } from "framer-motion";
 import Image from "./Image";
 
-export default function Temp() {
+export default function Feed(
+  username: any,
+  album: any,
+  song: any,
+  artist: any
+) {
+  // const mapStateToProps = () => {
+  //   eventBus.on("dataApply", (data: any) => console.log("Got it!"));
+  // };
+  // console.log(username["username"]);
+  // console.log(username["album"]);
+  // console.log(username["song"]);
+  // console.log(username["artist"]);
+
   return (
     <div className="snap-y snap-mandatory h-screen w-screen overflow-scroll sm:-mt-24">
-      {[
+      <Image
+        username={username["username"]}
+        album={username["album"]}
+        song={username["song"]}
+        artist={username["artist"]}
+      />
+      {/* {[
         {
           username: "frank",
           album: "Un Verano Sin Ti",
@@ -49,7 +69,7 @@ export default function Temp() {
           song={data.song}
           artist={data.artist}
         />
-      ))}
+      ))} */}
     </div>
   );
 }
