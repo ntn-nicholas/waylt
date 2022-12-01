@@ -2,11 +2,21 @@ import React, { useState, useEffect } from "react";
 import Song from "./Song";
 import Image from "./Image";
 import { loginUrl } from "../backend/login";
-
+const CLIENT_ID = "86aa68066b214479b85958aa0912c9e6";
+const CLIENT_SECRET = "bb6e78f6edc54c1cb764bfcb1bbe75fd";
 function SearchBar() {
   const [seeSearch, setSeeSearch] = useState("hidden");
   const [seeWelcome, setSeeWelcome] = useState("visible");
-
+  const [searchInput, setSearchInput] = useState("");
+  const [accessToken, setAccessToken] = useState("")
+  const [songSubmitted, setSongSubmitted] = useState(false);
+  const [seen, setSeen] = useState("hidden");
+  const [seenCard, setSeenCard] = useState("hidden");
+  const [songList, setSongList] = useState<any>([]);
+  const [songTitle, setSongTitle] = useState("");
+  const [artistOfSong, setArtistOfSong] = useState("");
+  const [albums, setAlbums] = useState([])
+  const [tracks, setTracks] = useState([])
   useEffect(() => {
     const loggedIn = window.location.href !== "http://localhost:3000/";
 
@@ -21,16 +31,20 @@ function SearchBar() {
       setSeeWelcome("hidden");
     }
     console.log(document.getElementById("login-button")!.innerHTML);
-  });
 
-  const [searchInput, setSearchInput] = useState("");
-  const [songSubmitted, setSongSubmitted] = useState(false);
-  const [seen, setSeen] = useState("hidden");
-  const [seenCard, setSeenCard] = useState("hidden");
-  const [songList, setSongList] = useState<any>([]);
+    var authParameters = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
+    }
+    fetch('https://accounts.spotify.com/api/token', authParameters)
+    .then(result => result.json())
+    .then(data => setAccessToken(data.access_token))
+  }, []);
 
-  const [songTitle, setSongTitle] = useState("");
-  const [artistOfSong, setArtistOfSong] = useState("");
+
 
   function sendSong(params: any) {
     params.preventDefault();
@@ -41,6 +55,33 @@ function SearchBar() {
     console.log(searchInput);
     setSongList(tempList);
     setSeen("visible");
+  }
+
+  async function search() {
+    console.log("Search for " + searchInput)
+    var searchParameters = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + accessToken
+      }
+    }
+
+    var returnedTracks = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=track', searchParameters)
+    .then(response => response.json())
+    .then(data => {setTracks(data.tracks.items);})
+
+    console.log(tracks)
+    var artistID = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=artist', searchParameters)
+    .then(response => response.json())
+    .then(data => {return data.artists.items[0].id})
+
+    var returnedAlbums = await fetch('https://api.spotify.com/v1/artists/' + artistID + '/albums?include_groups=album&market=US&limit=50', searchParameters)
+    .then(response => response.json())
+    .then(data => {
+      
+      setAlbums(data.items);
+    })
   }
 
   const songSelect = (props: any) => {
@@ -157,6 +198,7 @@ function SearchBar() {
               <button
                 type="submit"
                 className="lg:text-xl h-[4rem] rounded-full transition-all duration-500 text-turquoise bg-white border-turquoise border-2 hover:text-white hover:bg-turquoise md:px-2 py-4 w-full md:w-1/5"
+                onClick={event => {search()}}
               >
                 Submit
               </button>
@@ -167,14 +209,17 @@ function SearchBar() {
           id="songs"
           className={`${seen} flex flex-col flex-wrap justify-center mx-[3rem] sm:mx-[10rem] xl:mx-[30rem] gap-2`}
         >
-          {songList.map((song: any) => (
-            <section
-              onClick={songSelect}
-              className="transition duration-500 ease-in"
-            >
-              <Song title={song.title} artist={song.artist} />
-            </section>
-          ))}
+         
+          {tracks.map((track, i) => {
+            return (
+              <section
+                onClick={songSelect}
+                className="transition duration-500 ease-in"
+              >
+                <Song title={track['name']} artist={track['artists'][0]['name']} />
+              </section>
+            )
+          })}
         </div>
         <div className={`${seenCard}`}>
           <p className="text-center font-semibold tracking-tight text-xl mx-20 md:text-2xl md:mx-64">
