@@ -29,6 +29,8 @@ function SearchBar() {
       document.getElementById("nav-feed")!.innerHTML = "Feed";
       setSeeSearch("visible");
       setSeeWelcome("hidden");
+      // call octavios backend
+      
     }
     console.log(document.getElementById("login-button")!.innerHTML);
 
