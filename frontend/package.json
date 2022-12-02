@@ -11,6 +11,9 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.3",
+    "axios": "^1.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
     "framer-motion": "^7.6.7",
     "mongoose": "^6.7.2",
     "react": "^18.2.0",
@@ -19,6 +22,7 @@
     "react-scripts": "^5.0.1",
     "recharts": "^2.1.16",
     "spotify-web-api-js": "^1.5.2",
+    "spotify-web-api-node": "^5.0.2",
     "typescript": "^4.8.4",
     "web-vitals": "^2.1.4"
   },
@@ -50,5 +54,6 @@
   "devDependencies": {
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9"
-  }
+  },
+  "proxy": "http://localhost:8888/"
 }

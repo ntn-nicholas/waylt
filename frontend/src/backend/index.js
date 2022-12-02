@@ -1,5 +1,5 @@
 const InitiateMongoServer = require("./db_access");
-const UserSchema = require('./user_schema');
+const UserSchema = require('./models/user_schema');
 const { getTokenFromUrl } = require("./login");
 
 InitiateMongoServer();

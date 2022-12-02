@@ -1,10 +1,18 @@
 const express = require("express");
 const app = express();
-const puppeteer = require('puppeteer');
-const HTMLParser = require('node-html-parser');
+const axios = require("axios");
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
+// const puppeteer = require('puppeteer');
+// const HTMLParser = require('node-html-parser');
 const router = express.Router();
 var SpotifyWebApi = require('spotify-web-api-node');
-const nodemailer = require("nodemailer")
+// const nodemailer = require("nodemailer")
+const cors = require('cors');
+const { resolveSoa } = require("dns");
+app.use(cors())
+const access_token = "BQBDIM7sbevjBFdYqCwmhs2JRzqHMxzv2pDj2TUrW0suhHPYjGOD0hMoVR6nZppsBgg_cSzy4KxFu8QiE12jxeaqOUkIeCR-5fxccGuwnhtlIgjac6QKNYRwQln_kOcuXB_noOsVrOw1RFUyKFef4Qz5BMe6dtqP6vpz6UC-OGJcMR_kdAZO3peYbgfYe3P6bG5bQ4ewPePCe4cBkR4";
 
 var spotifyApi = new SpotifyWebApi(
     {
@@ -15,23 +23,29 @@ var spotifyApi = new SpotifyWebApi(
 );
 
 router.get('/', (req, res, next) => {
-    res.redirect(spotifyApi.createAuthorizeURL([
-        "user-read-recently-played",
-        "playlist-modify-private",
-        "playlist-modify-public",
-        "user-read-email",
-        "user-read-private",
-        "user-follow-read"
-    ]))
+    // res.redirect(spotifyApi.createAuthorizeURL([
+    //     "user-read-recently-played",
+    //     "playlist-modify-private",
+    //     "playlist-modify-public",
+    //     "user-read-email",
+    //     "user-read-private",
+    //     "user-follow-read"
+    // ]))
+    axios.get("data.json")
+    .then(data=> {res.send(JSON.stringify(data["recently_played"]))});
+    // res.send(JSON.stringify({"message": "from backend"}))
+})
+
+router.get('/', (req, res, next) => {
+    res.send("OK");
 })
 
 router.get('/callback', (req, res, next) => {
     spotifyApi.authorizationCodeGrant(req.query.code)
     .then((response) => {
-        console.log(response.body)
         spotifyApi.setAccessToken(response.body.access_token);
         // change the url of the line below to any of the other routes to demo them
-        res.redirect('/getFollowers');
+        axios.get("http://localhost:8888/userInfo").then(data=> {res.send(data)});
     });
 })
 
@@ -136,7 +150,7 @@ router.get('/statistics', (req, res, next)=> {
                         }
                     }
                     if (last && artist == song.artists.at(-1)) {
-                        res.send(JSON.stringify(applyConversion(dailyStatistics)));
+                        res.send(applyConversion(dailyStatistics));
                     }
                 });
             }
@@ -147,10 +161,11 @@ router.get('/statistics', (req, res, next)=> {
 
 // returns the current user's info
 router.get('/userInfo', (req, res, next) => {
-    spotifyApi.getMe()
-    .then(selfData => {
-        res.send(JSON.stringify(selfData.body))
-    })
+    res.send(axios.get("https://api.spotify.com/v1/me", {
+        headers: {
+          'Authorization': `Bearer ${access_token}`
+        }
+      }));
 })
 
 app.use('/', router);
