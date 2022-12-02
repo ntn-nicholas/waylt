@@ -17,7 +17,7 @@ export default function Navbar() {
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-white p-6 mb-20 h-30 sticky top-0 z-50">
-      <div className="flex-grow flex items-center w-auto lg:mx-24">
+      <div className="flex-grow flex items-center w-auto lg:mx-22">
         <div className="flex-grow">
           <Link
             to="/"
