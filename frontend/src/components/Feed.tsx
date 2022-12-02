@@ -16,7 +16,7 @@ type FeedData = {
     artist: string
 }
 
-export default function Feed() {
+export default function Feed(props: any) {
   // const mapStateToProps = () => {
   //   eventBus.on("dataApply", (data: any) => console.log("Got it!"));
   // };
@@ -25,14 +25,20 @@ export default function Feed() {
   // console.log(username["song"]);
   // console.log(username["artist"]);
     const [data, setData]: [any, any] = useState()
+    axios.get("http://localhost:8888/retrieveData").then((response : any) => {
+      for (const entry of response.data) {
+        // do stuff with each data entry
+        // access with entry.album, entry.artist, entry.song, entry.username
+      }
+    })
     
-    const getJSON = () => {
-        axios.get("http:/localhost:3002/posts")
-            .then((data) => setData(data.data))
-            .catch((error) => console.log(error))
-    }
+    // const getJSON = () => {
+    //     axios.get("http:/localhost:3002/posts")
+    //         .then((data) => setData(data.data))
+    //         .catch((error) => console.log(error))
+    // }
 
-    getJSON()
+    // getJSON()
 
   return (
     <div className="snap-y snap-mandatory h-screen w-screen overflow-scroll sm:-mt-24">

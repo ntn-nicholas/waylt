@@ -134,7 +134,7 @@ function SearchBar() {
       setSeen("hidden");
       setSeenCard("visible");
       // writeJSON();
-      await axios.post('http://localhost:3002/post', {userName, albumName, songTitle, artistOfSong})
+      await axios.post('http://localhost:8888/addSong', {"username": userName, "album": albumName, "song": songTitle, "artist": artistOfSong, "picture": ""})
     }
   };
 
