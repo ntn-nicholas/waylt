@@ -18,19 +18,16 @@ function App() {
       let access_token = window.location.hash.substring(1);
       const pattern = "access_token=(.+)&token_type=.*";
       const match = access_token.match(pattern);
-      if (match != null)
-        return match[1];
+      if (match != null) return match[1];
     };
     token = getTokenFromUrl();
-    axios.get("http://localhost:8888/")
-    .then(response => console.log(response))
-    .catch(error => {console.log("An error has occurred.")});
+    axios
+      .get("http://localhost:8888/")
+      .then((response) => console.log(response))
+      .catch((error) => {
+        console.log("An error has occurred.");
+      });
   }
-
-  let userName = "";
-  let albumName = "";
-  let songTitle = "";
-  let artistOfSong = "";
 
   return (
     <div className="bg-white font-montserrat">
@@ -38,17 +35,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<SearchBar />} />
-          <Route
-            path="/feed"
-            element={
-              <Feed
-                username={userName}
-                album={albumName}
-                song={songTitle}
-                artist={artistOfSong}
-              />
-            }
-          />
+          <Route path="/feed" element={<Feed />} />
           <Route path="/activity" element={<Activity />} />
         </Routes>
       </BrowserRouter>

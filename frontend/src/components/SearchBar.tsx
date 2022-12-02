@@ -10,7 +10,7 @@ const CLIENT_ID = "86aa68066b214479b85958aa0912c9e6";
 const CLIENT_SECRET = "bb6e78f6edc54c1cb764bfcb1bbe75fd";
 
 function SearchBar() {
-  const userName = "frank";
+  const [userName, setUsername] = useState("");
   const [seeSearch, setSeeSearch] = useState("hidden");
   const [seeWelcome, setSeeWelcome] = useState("visible");
   const [searchInput, setSearchInput] = useState("");
@@ -25,6 +25,7 @@ function SearchBar() {
   const [tracks, setTracks] = useState([]);
   const [albumName, setAlbumName] = useState("");
   const [imageURL, setImageURL] = useState<string>("");
+  // const [uri, setURI] = useState("");
 
   useEffect(() => {
     const loggedIn = window.location.href !== "http://localhost:3000/";
@@ -34,13 +35,12 @@ function SearchBar() {
       document.getElementById("login-button")!.innerHTML === "Log Out"
     ) {
       document.getElementById("login-button")!.innerHTML = "Log Out";
-      document.getElementById("nav-activity")!.innerHTML = "Activity";
+      // document.getElementById("nav-activity")!.innerHTML = "";
       document.getElementById("nav-feed")!.innerHTML = "Feed";
       setSeeSearch("visible");
       setSeeWelcome("hidden");
       // call octavios backend
     }
-    // console.log(document.getElementById("login-button")!.innerHTML);
 
     var authParameters = {
       method: "POST",
@@ -64,12 +64,10 @@ function SearchBar() {
 
     // IMPORTANT: grabs the typed in Song Title
 
-    // console.log(searchInput);
     setSeen("visible");
   }
 
   async function search() {
-    // console.log("Search for " + searchInput);
     var searchParameters = {
       method: "GET",
       headers: {
@@ -87,7 +85,6 @@ function SearchBar() {
         setTracks(data.tracks.items);
       });
 
-    // console.log(tracks);
     var artistID = await fetch(
       "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist",
       searchParameters
@@ -110,7 +107,13 @@ function SearchBar() {
   }
 
   const songSelect = async (props: any) => {
-    // applyData();
+    // const date = new Date();
+    // const year = date.getFullYear();
+    // const month = date.getMonth();
+    // const day = date.getDate();
+    // console.log(day + "/" + month + "/" + year);
+    // setUsername(day + "/" + month + "/" + year);
+
     setSeenCard("hidden");
 
     let x = props.target;
@@ -122,28 +125,34 @@ function SearchBar() {
       let songTitle = child.childNodes.item(0).innerHTML;
       let artistOfSong = child.childNodes.item(1).innerHTML;
       let albumName = tracks[0]["album"]["name"];
+      let songURI = tracks[0]["uri"];
+      let imageURL = tracks[0]["album"]["images"][1]["url"];
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const day = date.getDate();
+      let todayDate = day + "/" + month + "/" + year;
 
       // IMPORTANT: grabs the selected Song Title and Artist
-
-      // console.log(songTitle);
-      // console.log(artistOfSong);
       setSongTitle(songTitle);
       setArtistOfSong(artistOfSong);
       setAlbumName(tracks[0]["album"]["name"]);
       setImageURL(tracks[0]["album"]["images"][1]["url"]);
       setSeen("hidden");
       setSeenCard("visible");
+      // setURI(tracks[0]["uri"]);
+
       // writeJSON();
-      await axios.post('http://localhost:8888/addSong', {"username": userName, "album": albumName, "song": songTitle, "artist": artistOfSong, "picture": ""})
+      await axios.post("http://localhost:8888/addSong", {
+        username: todayDate,
+        album: albumName,
+        song: songTitle,
+        artist: artistOfSong,
+        url: imageURL,
+        uri: songURI,
+      });
     }
   };
-
-  // console.log(songTitle);
-  // console.log(artistOfSong);
-  // console.log(albums);
-  // console.log(tracks[0]["album"]["images"]);
-  // console.log(tracks[0]["album"]["name"]);
-
   return (
     <div>
       <div className="h-max">
@@ -204,7 +213,7 @@ function SearchBar() {
         </div>
         <div
           id="songs"
-          className={`${seen} flex flex-col flex-wrap justify-center mx-[3rem] sm:mx-[10rem] xl:mx-[30rem] gap-2`}
+          className={`${seen} flex flex-col flex-wrap justify-center mx-[3rem] sm:mx-[14rem] xl:mx-[35rem] gap-2`}
         >
           {tracks.map((track, i) => {
             return (
@@ -248,12 +257,7 @@ function SearchBar() {
       </div>
       <br />
       <div className="hidden">
-        <Feed
-          username={userName}
-          album={albumName}
-          song={songTitle}
-          artist={artistOfSong}
-        />
+        <Feed />
       </div>
     </div>
   );
