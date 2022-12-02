@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import eventBus from "./EventBus";
 import { Link } from "react-router-dom";
 import Song from "./Song";
 import Image from "./Image";

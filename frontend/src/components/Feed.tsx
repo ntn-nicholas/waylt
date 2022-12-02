@@ -24,13 +24,7 @@ export default function Feed(
 
   return (
     <div className="snap-y snap-mandatory h-screen w-screen overflow-scroll sm:-mt-24">
-      <Image
-        username={username["username"]}
-        album={username["album"]}
-        song={username["song"]}
-        artist={username["artist"]}
-      />
-      {/* {[
+      {[
         {
           username: "frank",
           album: "Un Verano Sin Ti",
@@ -68,7 +62,7 @@ export default function Feed(
           song={data.song}
           artist={data.artist}
         />
-      ))} */}
+      ))}
     </div>
   );
 }
