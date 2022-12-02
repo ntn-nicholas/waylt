@@ -4,6 +4,8 @@ import Song from "./Song";
 import Image from "./Image";
 import Feed from "./Feed";
 import { loginUrl } from "../backend/login";
+import axios from "axios";
+
 const CLIENT_ID = "86aa68066b214479b85958aa0912c9e6";
 const CLIENT_SECRET = "bb6e78f6edc54c1cb764bfcb1bbe75fd";
 
@@ -107,7 +109,7 @@ function SearchBar() {
       });
   }
 
-  const songSelect = (props: any) => {
+  const songSelect = async (props: any) => {
     // applyData();
     setSeenCard("hidden");
 
@@ -119,6 +121,7 @@ function SearchBar() {
     for (const child of x.childNodes) {
       let songTitle = child.childNodes.item(0).innerHTML;
       let artistOfSong = child.childNodes.item(1).innerHTML;
+      let albumName = tracks[0]["album"]["name"];
 
       // IMPORTANT: grabs the selected Song Title and Artist
 
@@ -131,6 +134,7 @@ function SearchBar() {
       setSeen("hidden");
       setSeenCard("visible");
       // writeJSON();
+      await axios.post('http://localhost:3002/post', {userName, albumName, songTitle, artistOfSong})
     }
   };
 
