@@ -34,7 +34,7 @@ function Image({
   }
 
   return (
-    <section className="snap-center h-screen flex justify-center items-center relative drop-shadow-2xl">
+    <section className="snap-center h-screen flex justify-center items-center relative hover:drop-shadow-2xl">
       <h1 className="text-center sm:text-left bottom-[18rem] text-3xl text-pink drop-shadow-lg sm:left-[62%] sm:bottom-[22rem] 2xl:left-[57%] 2xl:bottom-[32rem] sm:visible sm:text-3xl font-bold tracking-tight leading-tight absolute z-40 italic">{`${username}`}</h1>
       {/* <h2 className="text-center sm:text-left bottom-[48rem] text-5xl text-pink drop-shadow-lg sm:left-[10%] sm:bottom-[33rem] 2xl:left-[25%] 2xl:bottom-[40rem] sm:visible sm:text-4xl font-bold tracking-tight leading-tight absolute z-40 w-30">{`${album}`}</h2> */}
       <h2 className="text-center sm:text-left bottom-[50rem] text-4xl text-pink drop-shadow-lg sm:left-[27%] sm:bottom-[30rem] 2xl:left-[25%] 2xl:bottom-[37rem] sm:visible sm:text-5xl font-bold tracking-tight leading-tight absolute z-40">{`${song}`}</h2>

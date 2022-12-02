@@ -131,7 +131,7 @@ function SearchBar() {
       const year = date.getFullYear();
       const month = date.getMonth();
       const day = date.getDate();
-      let todayDate = day + "/" + month + "/" + year;
+      let todayDate = month + "/" + day + "/" + year;
 
       // IMPORTANT: grabs the selected Song Title and Artist
       setSongTitle(songTitle);
@@ -244,7 +244,15 @@ function SearchBar() {
             >
               {artistOfSong}
             </span>{" "}
-            has been added to your feed!
+            has been added to your{" "}
+            <Link
+              id="nav-feed"
+              to="/feed"
+              className="text-turquoise animate-pulse duration-300"
+            >
+              feed
+            </Link>
+            !
           </p>
           <div className="flex justify-center drop-shadow-xl mt-10 hover:drop-shadow-2xl">
             <img
