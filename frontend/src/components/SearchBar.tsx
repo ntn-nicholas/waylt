@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Song from "./Song";
 import Image from "./Image";
+import Feed from "./Feed";
 import { loginUrl } from "../backend/login";
+import axios from "axios";
+
 const CLIENT_ID = "86aa68066b214479b85958aa0912c9e6";
 const CLIENT_SECRET = "bb6e78f6edc54c1cb764bfcb1bbe75fd";
+
 function SearchBar() {
+  const userName = "frank";
   const [seeSearch, setSeeSearch] = useState("hidden");
   const [seeWelcome, setSeeWelcome] = useState("visible");
   const [searchInput, setSearchInput] = useState("");
-  const [accessToken, setAccessToken] = useState("")
+  const [accessToken, setAccessToken] = useState("");
   const [songSubmitted, setSongSubmitted] = useState(false);
   const [seen, setSeen] = useState("hidden");
   const [seenCard, setSeenCard] = useState("hidden");
   const [songList, setSongList] = useState<any>([]);
   const [songTitle, setSongTitle] = useState("");
   const [artistOfSong, setArtistOfSong] = useState("");
-  const [albums, setAlbums] = useState([])
-  const [tracks, setTracks] = useState([])
+  const [albums, setAlbums] = useState([]);
+  const [tracks, setTracks] = useState([]);
+  const [albumName, setAlbumName] = useState("");
+  const [imageURL, setImageURL] = useState<string>("");
+
   useEffect(() => {
     const loggedIn = window.location.href !== "http://localhost:3000/";
 
@@ -29,22 +38,25 @@ function SearchBar() {
       document.getElementById("nav-feed")!.innerHTML = "Feed";
       setSeeSearch("visible");
       setSeeWelcome("hidden");
+      // call octavios backend
     }
-    console.log(document.getElementById("login-button")!.innerHTML);
+    // console.log(document.getElementById("login-button")!.innerHTML);
 
     var authParameters = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
-    }
-    fetch('https://accounts.spotify.com/api/token', authParameters)
-    .then(result => result.json())
-    .then(data => setAccessToken(data.access_token))
+      body:
+        "grant_type=client_credentials&client_id=" +
+        CLIENT_ID +
+        "&client_secret=" +
+        CLIENT_SECRET,
+    };
+    fetch("https://accounts.spotify.com/api/token", authParameters)
+      .then((result) => result.json())
+      .then((data) => setAccessToken(data.access_token));
   }, []);
-
-
 
   function sendSong(params: any) {
     params.preventDefault();
@@ -52,39 +64,53 @@ function SearchBar() {
 
     // IMPORTANT: grabs the typed in Song Title
 
-    console.log(searchInput);
-    setSongList(tempList);
+    // console.log(searchInput);
     setSeen("visible");
   }
 
   async function search() {
-    console.log("Search for " + searchInput)
+    // console.log("Search for " + searchInput);
     var searchParameters = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + accessToken
-      }
-    }
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
+    };
 
-    var returnedTracks = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=track', searchParameters)
-    .then(response => response.json())
-    .then(data => {setTracks(data.tracks.items);})
+    var returnedTracks = await fetch(
+      "https://api.spotify.com/v1/search?q=" + searchInput + "&type=track",
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setTracks(data.tracks.items);
+      });
 
-    console.log(tracks)
-    var artistID = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=artist', searchParameters)
-    .then(response => response.json())
-    .then(data => {return data.artists.items[0].id})
+    // console.log(tracks);
+    var artistID = await fetch(
+      "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist",
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        return data.artists.items[0].id;
+      });
 
-    var returnedAlbums = await fetch('https://api.spotify.com/v1/artists/' + artistID + '/albums?include_groups=album&market=US&limit=50', searchParameters)
-    .then(response => response.json())
-    .then(data => {
-      
-      setAlbums(data.items);
-    })
+    var returnedAlbums = await fetch(
+      "https://api.spotify.com/v1/artists/" +
+        artistID +
+        "/albums?include_groups=album&market=US&limit=50",
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setAlbums(data.items);
+      });
   }
 
-  const songSelect = (props: any) => {
+  const songSelect = async (props: any) => {
+    // applyData();
     setSeenCard("hidden");
 
     let x = props.target;
@@ -95,59 +121,28 @@ function SearchBar() {
     for (const child of x.childNodes) {
       let songTitle = child.childNodes.item(0).innerHTML;
       let artistOfSong = child.childNodes.item(1).innerHTML;
+      let albumName = tracks[0]["album"]["name"];
 
       // IMPORTANT: grabs the selected Song Title and Artist
 
-      console.log(songTitle);
-      console.log(artistOfSong);
+      // console.log(songTitle);
+      // console.log(artistOfSong);
       setSongTitle(songTitle);
       setArtistOfSong(artistOfSong);
+      setAlbumName(tracks[0]["album"]["name"]);
+      setImageURL(tracks[0]["album"]["images"][1]["url"]);
       setSeen("hidden");
       setSeenCard("visible");
+      // writeJSON();
+      await axios.post('http://localhost:3002/post', {userName, albumName, songTitle, artistOfSong})
     }
   };
 
-  const tempList: any[] = [
-    {
-      title: "All I want for Christmas Is You",
-      artist: "Mariah Carey",
-    },
-    {
-      title: "Santa Tell Me",
-      artist: "Ariana Grande",
-    },
-    {
-      title: "Misteltoe",
-      artist: "Justin Bieber",
-    },
-  ];
-
-  const tempList_2: any[] = [
-    {
-      title: "All I want for Christmas Is You",
-      artist: "Mariah Carey",
-    },
-    {
-      title: "Santa Tell Me",
-      artist: "Ariana Grande",
-    },
-    {
-      title: "Misteltoe",
-      artist: "Justin Bieber",
-    },
-    {
-      title: "Snowman",
-      artist: "Sia",
-    },
-    {
-      title: "What Christmas Means To Me",
-      artist: "98",
-    },
-    {
-      title: "Holly Jolly Christmas",
-      artist: "Michael Buble",
-    },
-  ];
+  // console.log(songTitle);
+  // console.log(artistOfSong);
+  // console.log(albums);
+  // console.log(tracks[0]["album"]["images"]);
+  // console.log(tracks[0]["album"]["name"]);
 
   return (
     <div>
@@ -198,7 +193,9 @@ function SearchBar() {
               <button
                 type="submit"
                 className="lg:text-xl h-[4rem] rounded-full transition-all duration-500 text-turquoise bg-white border-turquoise border-2 hover:text-white hover:bg-turquoise md:px-2 py-4 w-full md:w-1/5"
-                onClick={event => {search()}}
+                onClick={(event) => {
+                  search();
+                }}
               >
                 Submit
               </button>
@@ -209,33 +206,55 @@ function SearchBar() {
           id="songs"
           className={`${seen} flex flex-col flex-wrap justify-center mx-[3rem] sm:mx-[10rem] xl:mx-[30rem] gap-2`}
         >
-         
           {tracks.map((track, i) => {
             return (
               <section
                 onClick={songSelect}
                 className="transition duration-500 ease-in"
               >
-                <Song title={track['name']} artist={track['artists'][0]['name']} />
+                <Song
+                  title={track["name"]}
+                  artist={track["artists"][0]["name"]}
+                />
               </section>
-            )
+            );
           })}
         </div>
         <div className={`${seenCard}`}>
           <p className="text-center font-semibold tracking-tight text-xl mx-20 md:text-2xl md:mx-64">
-            <span className="italic font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink via-yellow to-turquoise">
+            <span
+              id="songTitle-id"
+              className="italic font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink via-yellow to-turquoise"
+            >
               {songTitle}
             </span>{" "}
             by{" "}
-            <span className="italic font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise via-pink to-yellow">
+            <span
+              id="artistOfSong-id"
+              className="italic font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise via-pink to-yellow"
+            >
               {artistOfSong}
             </span>{" "}
             has been added to your feed!
           </p>
-          <button className="">Feed!</button>
+          <div className="flex justify-center drop-shadow-xl mt-10 hover:drop-shadow-2xl">
+            <img
+              className="transition duration-300 hover:scale-110 rounded-lg"
+              src={imageURL}
+              alt="Album"
+            />
+          </div>
         </div>
       </div>
       <br />
+      <div className="hidden">
+        <Feed
+          username={userName}
+          album={albumName}
+          song={songTitle}
+          artist={artistOfSong}
+        />
+      </div>
     </div>
   );
 }

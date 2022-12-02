@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import {
   motion,
   useScroll,
@@ -8,41 +9,34 @@ import {
 } from "framer-motion";
 import Image from "./Image";
 
-export default function Temp() {
+type FeedData = {
+    username: string,
+    album: string,
+    song: string,
+    artist: string
+}
+
+export default function Feed() {
+  // const mapStateToProps = () => {
+  //   eventBus.on("dataApply", (data: any) => console.log("Got it!"));
+  // };
+  // console.log(username["username"]);
+  // console.log(username["album"]);
+  // console.log(username["song"]);
+  // console.log(username["artist"]);
+    const [data, setData]: [any, any] = useState()
+    
+    const getJSON = () => {
+        axios.get("http:/localhost:3002/posts")
+            .then((data) => setData(data.data))
+            .catch((error) => console.log(error))
+    }
+
+    getJSON()
+
   return (
     <div className="snap-y snap-mandatory h-screen w-screen overflow-scroll sm:-mt-24">
-      {[
-        {
-          username: "frank",
-          album: "Un Verano Sin Ti",
-          song: "Moscow Mule",
-          artist: "Bad Bunny",
-        },
-        {
-          username: "ivnnn",
-          album: "Mr. Morale & the Big Steppers",
-          song: "United in Grief",
-          artist: "Kendrick Lamar",
-        },
-        {
-          username: "teresa",
-          album: "Midnights",
-          song: "Lavendar Haze",
-          artist: "Taylor Swift",
-        },
-        {
-          username: "tzu",
-          album: "Harry's House",
-          song: "As it Was",
-          artist: "Harry Styles",
-        },
-        {
-          username: "viv",
-          album: "I Never Die",
-          song: "TOMBOY",
-          artist: "(G)I-DLE",
-        },
-      ].map((data) => (
+      {data && data.map((data: FeedData) => (
         <Image
           username={data.username}
           album={data.album}

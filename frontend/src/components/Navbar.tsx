@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { loginUrl } from "../backend/login";
 
 export default function Navbar() {
+  
   const [seeLogin, setSeeLogin] = useState(false);
   useEffect(() => {
-    console.log("Hello");
     const loggedIn = window.location.href !== "http://localhost:3000/";
 
     if (loggedIn) {

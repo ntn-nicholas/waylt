@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Feed from "./components/Feed";
 import Activity from "./components/Activity";
 import Log_in from "./components/Log_in";
@@ -27,13 +27,28 @@ function App() {
     .catch(error => {console.log("An error has occurred.")});
   }
 
+  let userName = "";
+  let albumName = "";
+  let songTitle = "";
+  let artistOfSong = "";
+
   return (
     <div className="bg-white font-montserrat">
       <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/" element={<SearchBar />} />
-          <Route path="/feed" element={<Feed />} />
+          <Route
+            path="/feed"
+            element={
+              <Feed
+                username={userName}
+                album={albumName}
+                song={songTitle}
+                artist={artistOfSong}
+              />
+            }
+          />
           <Route path="/activity" element={<Activity />} />
         </Routes>
       </BrowserRouter>
