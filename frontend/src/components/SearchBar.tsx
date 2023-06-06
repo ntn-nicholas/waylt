@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Song from "./Song";
 import Image from "./Image";
 import Feed from "./Feed";
-import { loginUrl } from "../backend/login";
+import { loginUrl } from "../login";
 import axios from "axios";
 
 const CLIENT_ID = "86aa68066b214479b85958aa0912c9e6";
