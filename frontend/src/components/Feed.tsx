@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef } from "react";
-import { get } from "@vercel/edge-config"
+import axios from "axios";
 import Image from "./Image";
 
 export default function Feed() {
   const [songList, setSongList] = useState([]);
 
   useEffect(() => {
-    get('data').then((response: any) => {
-      setSongList(response);
-    })
+    axios.get("http://localhost:8888/retrieveData").then((response: any) => {
+      setSongList(response.data);
+    });
   });
   return (
     <div className="snap-y snap-mandatory h-screen w-screen overflow-scroll sm:-mt-24">

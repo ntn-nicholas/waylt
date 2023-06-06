@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { loginUrl } from "../login";
+import { loginUrl } from "../backend/login";
 
 export default function Navbar() {
   const [seeLogin, setSeeLogin] = useState(false);
