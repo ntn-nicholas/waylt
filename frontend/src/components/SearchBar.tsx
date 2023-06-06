@@ -6,8 +6,8 @@ import Feed from "./Feed";
 import { loginUrl } from "../backend/login";
 import axios from "axios";
 
-const CLIENT_ID = "86aa68066b214479b85958aa0912c9e6";
-const CLIENT_SECRET = "bb6e78f6edc54c1cb764bfcb1bbe75fd";
+const CLIENT_ID = "63151b1978cd47e0a328f04be7fe14d7";
+const CLIENT_SECRET = "d021076f0c8f407c8a39248944ac17f4";
 
 function SearchBar() {
   const [userName, setUsername] = useState("");
@@ -18,7 +18,6 @@ function SearchBar() {
   const [songSubmitted, setSongSubmitted] = useState(false);
   const [seen, setSeen] = useState("hidden");
   const [seenCard, setSeenCard] = useState("hidden");
-  const [songList, setSongList] = useState<any>([]);
   const [songTitle, setSongTitle] = useState("");
   const [artistOfSong, setArtistOfSong] = useState("");
   const [albums, setAlbums] = useState([]);
@@ -28,11 +27,9 @@ function SearchBar() {
   // const [uri, setURI] = useState("");
 
   useEffect(() => {
-    const loggedIn = window.location.href !== "http://localhost:3000/";
 
     if (
-      loggedIn ||
-      document.getElementById("login-button")!.innerHTML === "Log Out"
+      window.location.hash != ''
     ) {
       document.getElementById("login-button")!.innerHTML = "Log Out";
       // document.getElementById("nav-activity")!.innerHTML = "";

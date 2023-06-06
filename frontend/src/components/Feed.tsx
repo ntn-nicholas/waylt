@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { get } from '@vercel/edge-config'
 import Image from "./Image";
 
 export default function Feed() {
   const [songList, setSongList] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8888/retrieveData").then((response: any) => {
-      setSongList(response.data);
+    get("data").then((response: any) => {
+      setSongList(response);
     });
   });
   return (

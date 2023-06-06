@@ -5,7 +5,7 @@ import { loginUrl } from "../backend/login";
 export default function Navbar() {
   const [seeLogin, setSeeLogin] = useState(false);
   useEffect(() => {
-    const loggedIn = window.location.href !== "http://localhost:3000/";
+    const loggedIn = window.location.hash !== "";
 
     if (loggedIn) {
       setSeeLogin(true);

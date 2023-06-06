@@ -8,7 +8,6 @@ import SearchBar from "./components/SearchBar";
 
 import "./App.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import axios from "axios";
 
 export let token = null as any;
 
@@ -21,12 +20,6 @@ function App() {
       if (match != null) return match[1];
     };
     token = getTokenFromUrl();
-    axios
-      .get("http://localhost:8888/")
-      .then((response) => console.log(response))
-      .catch((error) => {
-        console.log("An error has occurred.");
-      });
   }
 
   return (
