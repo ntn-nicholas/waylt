@@ -140,6 +140,14 @@ function SearchBar() {
       setSeenCard("visible");
       // setURI(tracks[0]["uri"]);
 
+      console.log({
+        username: todayDate,
+        album: albumName,
+        song: songTitle,
+        artist: artistOfSong,
+        url: imageURL,
+        uri: songURI,
+      });
       // writeJSON();
       // await axios.post(`${DB_URL}/data`, {
       //   username: todayDate,
