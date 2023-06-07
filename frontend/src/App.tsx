@@ -22,6 +22,10 @@ function App() {
     token = getTokenFromUrl();
   }
 
+  if (window.location.pathname == '/get_feed') {
+    return <></>
+  }
+
   return (
     <div className="bg-white font-montserrat">
       <BrowserRouter>

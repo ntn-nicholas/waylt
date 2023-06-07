@@ -8,6 +8,7 @@ import axios from "axios";
 
 const CLIENT_ID = "63151b1978cd47e0a328f04be7fe14d7";
 const CLIENT_SECRET = "d021076f0c8f407c8a39248944ac17f4";
+const DB_URL = "https://edge-config.vercel.com/ecfg_rvxk6ckosr879l09mtd5b3xkgujb?token=c1eb83a5-5d8e-4213-a066-35cd2a6818c9"
 
 function SearchBar() {
   const [userName, setUsername] = useState("");
@@ -140,14 +141,14 @@ function SearchBar() {
       // setURI(tracks[0]["uri"]);
 
       // writeJSON();
-      await axios.post("http://localhost:8888/addSong", {
-        username: todayDate,
-        album: albumName,
-        song: songTitle,
-        artist: artistOfSong,
-        url: imageURL,
-        uri: songURI,
-      });
+      // await axios.post(`${DB_URL}/data`, {
+      //   username: todayDate,
+      //   album: albumName,
+      //   song: songTitle,
+      //   artist: artistOfSong,
+      //   url: imageURL,
+      //   uri: songURI,
+      // });
     }
   };
   return (
